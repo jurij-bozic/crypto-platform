@@ -10,6 +10,8 @@ import createEmotionServer from '@emotion/server/create-instance'
 // ** Utils Imports
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 import '../configs/firebase-config'
+import store from '../redux/store';
+import { Provider } from 'react-redux';
 
 class CustomDocument extends Document {
   render() {
@@ -41,10 +43,12 @@ CustomDocument.getInitialProps = async ctx => {
     originalRenderPage({
       enhanceApp: App => props =>
         (
-          <App
-            {...props} // @ts-ignore
-            emotionCache={cache}
-          />
+
+            <App
+              {...props} // @ts-ignore
+              emotionCache={cache}
+            />
+
         )
     })
   const initialProps = await Document.getInitialProps(ctx)

@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent'
 
 // ** Icons Imports
 import DotsVertical from 'mdi-material-ui/DotsVertical'
+import Pin from 'mdi-material-ui/Pin'
 
 const CardStatsVertical = props => {
   // ** Props
@@ -15,13 +16,19 @@ const CardStatsVertical = props => {
 
   return (
     <Card>
-      <CardContent>
+      <CardContent style={{ width: 160 }}>
         <Box sx={{ display: 'flex', marginBottom: 5.5, alignItems: 'flex-start', justifyContent: 'space-between' }}>
-          <Avatar sx={{ boxShadow: 3, marginRight: 4, color: 'common.white', backgroundColor: `${color}.main` }}>
-            {icon}
-          </Avatar>
+          <div style={{ 
+              width: 50,
+              height: 50,
+              marginRight: 4, 
+              backgroundImage: 'url("' + icon + '")', 
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain'
+            }}>
+          </div>
           <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
-            <DotsVertical />
+            <Pin />
           </IconButton>
         </Box>
         <Typography sx={{ fontWeight: 600, fontSize: '0.875rem' }}>{title}</Typography>

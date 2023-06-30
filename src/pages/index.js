@@ -1,100 +1,103 @@
-// ** React Imports
-import { useState } from 'react'
-
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import TabContext from '@mui/lab/TabContext'
-import { styled } from '@mui/material/styles'
-import MuiTab from '@mui/material/Tab'
+import Grid from '@mui/material/Grid'
 
 // ** Icons Imports
-import AccountOutline from 'mdi-material-ui/AccountOutline'
-import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
-import InformationOutline from 'mdi-material-ui/InformationOutline'
+import Poll from 'mdi-material-ui/Poll'
+import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
+import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
+import BriefcaseVariantOutline from 'mdi-material-ui/BriefcaseVariantOutline'
+
+// ** Custom Components Imports
+import CardStatisticsVerticalComponent from 'src/@core/components/card-statistics/card-stats-vertical'
+
+// ** Styled Component Import
+import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
+
+// ** Demo Components Imports
+import Table from 'src/views/dashboard/Table'
+import Trophy from 'src/views/dashboard/Trophy'
+import CryptoStats from 'src/views/dashboard/CryptoStats'
+import StatisticsCard from 'src/views/dashboard/StatisticsCard'
+import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
+import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
+import SalesByCountries from 'src/views/dashboard/SalesByCountries'
+import store from '../redux/store';
+import { Provider } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { cryptoApi } from 'src/services/cryptoApi'
+import useAxios from "axios-hooks";
+import millify from 'millify';
+
+// ** MUI Imports
+import { styled } from '@mui/material/styles'
+import MuiTab from '@mui/material/Tab'
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
 
-const Tab = styled(MuiTab)(({ theme }) => ({
-  [theme.breakpoints.down('md')]: {
-    minWidth: 100
-  },
-  [theme.breakpoints.down('sm')]: {
-    minWidth: 67
-  }
-}))
-
-const TabName = styled('span')(({ theme }) => ({
-  lineHeight: 1.71,
-  fontSize: '0.875rem',
-  marginLeft: theme.spacing(2.4),
-  [theme.breakpoints.down('md')]: {
-    display: 'none'
-  }
-}))
-
 const HomePage = () => {
-  // ** State
-  const [value, setValue] = useState('tab1')
+  const [{ data, loading, error }] = useAxios(cryptoApi.coins)
+  const [topTwentyCoins, setToptwentyCoins] = useState([])
+  const [cryptoStats, setCryptoStats] = useState({})
+  const organizeCoinData = () => {
+    if (data?.data?.coins.length > 0) {
+      setToptwentyCoins(data.data.coins.slice(0, 20))
+    }
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
+    if (data?.data?.stats) {
+      setCryptoStats(data.data.stats)
+    }
   }
+  
+  useEffect(() => {
+    if (data) {
+      organizeCoinData()
+      console.log(data)
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log(topTwentyCoins)
+  }, [topTwentyCoins]);
+
+  useEffect(() => {
+    let test = cryptoStats
+    console.log(cryptoStats)
+    // debugger
+  }, [cryptoStats]);
 
   return (
-    <Card>
-      <TabContext value={value}>
-        <TabList
-          onChange={handleChange}
-          aria-label='account-settings tabs'
-          sx={{ borderBottom: theme => `1px solid ${theme.palette.divider}` }}
-        >
-          <Tab
-            value='tab1'
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <AccountOutline />
-                <TabName>Tab1</TabName>
-              </Box>
-            }
-          />
-          <Tab
-            value='tab2'
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <LockOpenOutline />
-                <TabName>tab2</TabName>
-              </Box>
-            }
-          />
-          <Tab
-            value='tab3'
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <InformationOutline />
-                <TabName>Tab3</TabName>
-              </Box>
-            }
-          />
-        </TabList>
-
-        <TabPanel sx={{ p: 0 }} value='tab1'>
-          {/* <TabAccount /> */}
-          <div>INTRO STUFF ABOUT THE APP</div>
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value='tab2'>
-          {/* <TabSecurity /> */}
-          <div>MORE STUFF ABOUT THE APP</div>
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value='tab3'>
-        <div>EVEN MORE STUFF ABOUT THE APP</div>
-          {/* <TabInfo /> */}
-        </TabPanel>
-      </TabContext>
-    </Card>
+    <ApexChartWrapper style={{ maxWidth: 840 }}>     
+      <div>
+        <div >
+          <CryptoStats 
+            total24hVolume={(cryptoStats.total24hVolume ? millify(cryptoStats.total24hVolume) : 0)}
+            totalCoins={(cryptoStats.totalCoins ? millify(cryptoStats.totalCoins) : 0)}
+            totalExchanges={(cryptoStats.totalExchanges ? millify(cryptoStats.totalExchanges) : 0)}
+            totalMarketCap={(cryptoStats.totalMarketCap ? millify(cryptoStats.totalMarketCap) : 0)}
+            />
+        </div>
+      </div>
+      <br/>
+      <div style={{ display: 'flex', justifyContent: 'normal', flexWrap: 'wrap' }}>
+        {(topTwentyCoins.length > 0 ? topTwentyCoins.map((coin, index) => (
+            <Grid item xs={7} sx={{ marginTop: 10, marginRight: 8 }} key={index}>
+              <CardStatisticsVerticalComponent
+                stats={'$' + millify(coin.price)}
+                title={coin.name}
+                trend={(coin.change[0] == '-' ? 'negative' : 'positive')}
+                color='secondary'
+                trendNumber={coin.change + '%'}
+                subtitle='24 Hours'
+                icon={coin.iconUrl}
+              />
+            </Grid>
+        ))
+          : <></>
+        )}
+      </div>
+  </ApexChartWrapper>
+ 
   )
 }
 

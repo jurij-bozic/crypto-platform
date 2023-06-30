@@ -20,7 +20,7 @@ const navigation = () => {
     {
       title: 'Crypto News',
       icon: NewspaperIcon,
-      path: '/dashboard'
+      path: '/news'
     },
     {
       sectionTitle: 'Account Actions'
