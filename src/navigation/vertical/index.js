@@ -15,7 +15,7 @@ const navigation = () => {
     {
       title: 'Personal Coin List',
       icon: CurrencyBitcoin,
-      path: '/dashboard'
+      path: '/personalcoinlist'
     },
     {
       title: 'Crypto News',

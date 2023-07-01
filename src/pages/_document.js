@@ -1,17 +1,12 @@
 // ** React Import
 import { Children } from 'react'
-
 // ** Next Import
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-
 // ** Emotion Imports
 import createEmotionServer from '@emotion/server/create-instance'
-
 // ** Utils Imports
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 import '../configs/firebase-config'
-import store from '../redux/store';
-import { Provider } from 'react-redux';
 
 class CustomDocument extends Document {
   render() {

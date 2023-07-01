@@ -1,22 +1,17 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-
-// ** Icons Imports
-import DotsVertical from 'mdi-material-ui/DotsVertical'
 import Pin from 'mdi-material-ui/Pin'
 
 const CardStatsVertical = props => {
-  // ** Props
   const { title, subtitle, color, icon, stats, trend, trendNumber } = props
 
   return (
     <Card>
-      <CardContent style={{ width: 160 }}>
+      <CardContent style={{ width: 170 }}>
         <Box sx={{ display: 'flex', marginBottom: 5.5, alignItems: 'flex-start', justifyContent: 'space-between' }}>
           <div style={{ 
               width: 50,
@@ -27,7 +22,7 @@ const CardStatsVertical = props => {
               backgroundSize: 'contain'
             }}>
           </div>
-          <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
+          <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: '#e3e1e1' }}>
             <Pin />
           </IconButton>
         </Box>

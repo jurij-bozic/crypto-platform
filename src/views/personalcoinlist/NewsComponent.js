@@ -9,7 +9,6 @@ import MuiDivider from '@mui/material/Divider'
 import { useEffect, useState } from 'react';
 import { cryptoApi } from 'src/services/cryptoApi'
 import useAxios from "axios-hooks";
-import millify from 'millify';
 import Icon from '@mui/material/Icon';
 import NewsItem from 'mdi-material-ui/Newspaper';
 
@@ -25,7 +24,7 @@ const Divider = styled(MuiDivider)(({ theme }) => ({
   }
 }))
 
-const DepositWithdraw = () => {
+const NewsComponent = () => {
   const [{ data, loading, error }] = useAxios(cryptoApi.news)
   const [news, setNews] = useState([])
 
@@ -111,4 +110,4 @@ const DepositWithdraw = () => {
   )
 }
 
-export default DepositWithdraw
+export default NewsComponent

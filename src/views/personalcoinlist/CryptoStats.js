@@ -10,9 +10,6 @@ import LinearProgress from '@mui/material/LinearProgress'
 import Cash from 'mdi-material-ui/Animation';
 import Exchange from 'mdi-material-ui/Bank';
 import MarketCap from 'mdi-material-ui/CurrencyUsd';
-
-// ** Icons Imports
-import MenuUp from 'mdi-material-ui/MenuUp'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 
 const CryptoStats = (props) => {
@@ -32,12 +29,8 @@ const CryptoStats = (props) => {
           <Typography variant='h4' sx={{ fontWeight: 600, fontSize: '2.125rem !important' }}>
             {'$' + props.total24hVolume}
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', color: 'success.main' }}>
-            {/* <MenuUp sx={{ fontSize: '1.875rem', verticalAlign: 'middle' }} /> */}
-            {/* <Typography variant='body2' sx={{ fontWeight: 600, color: 'success.main' }}>
-              10%
-            </Typography> */}
-          </Box>
+          {/* <Box sx={{ display: 'flex', alignItems: 'center', color: 'success.main' }}>
+          </Box> */}
         </Box>
 
         <Typography component='p' variant='caption' sx={{ mb: 10 }}>

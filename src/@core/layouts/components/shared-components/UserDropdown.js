@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, Fragment } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 
 // ** Next Import
 import { useRouter } from 'next/router'
@@ -24,6 +24,8 @@ import MessageOutline from 'mdi-material-ui/MessageOutline'
 import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
 import { auth } from 'src/configs/firebase-config'
 import { useSignOut } from 'react-firebase-hooks/auth'
+import ProfileFace from 'mdi-material-ui/FaceMan';
+import { onAuthStateChanged } from "firebase/auth";
 
 // ** Styled Components
 const BadgeContentSpan = styled('span')(({ theme }) => ({
@@ -35,12 +37,10 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 }))
 
 const UserDropdown = () => {
-  // ** States
   const [anchorEl, setAnchorEl] = useState(null)
-
-  // ** Hooks
   const router = useRouter()
   const [signOut] = useSignOut(auth);
+  const [userName, setUserName] = useState('')
 
   const handleDropdownOpen = event => {
     setAnchorEl(event.currentTarget)
@@ -57,19 +57,16 @@ const UserDropdown = () => {
     signOut()
   }
 
-  const styles = {
-    py: 2,
-    px: 4,
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    color: 'text.primary',
-    textDecoration: 'none',
-    '& svg': {
-      fontSize: '1.375rem',
-      color: 'text.secondary'
-    }
-  }
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserName(user.email)
+      }
+      else {
+        setUserName('')
+      }
+    })
+  }, []);
 
   return (
     <Fragment>
@@ -80,13 +77,17 @@ const UserDropdown = () => {
         badgeContent={<BadgeContentSpan />}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <Avatar
-          alt='John Doe'
-          onClick={handleDropdownOpen}
-          sx={{ width: 40, height: 40 }}
-          src='/images/avatars/1.png'
-        />
-      </Badge>
+        {userName ? 
+            <Avatar
+            alt='John Doe'
+            onClick={handleDropdownOpen}
+            sx={{ width: 40, height: 40 }}
+            src='/images/avatars/1.png'
+          />
+          :
+          <ProfileFace />
+         }
+        </Badge>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -102,12 +103,21 @@ const UserDropdown = () => {
               badgeContent={<BadgeContentSpan />}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             >
-              <Avatar alt='John Doe' src='/images/avatars/1.png' sx={{ width: '2.5rem', height: '2.5rem' }} />
+              {userName ? 
+                <Avatar
+                  alt='John Doe'
+                  onClick={handleDropdownOpen}
+                  sx={{ width: 40, height: 40 }}
+                  src='/images/avatars/1.png'
+                />
+                :
+                <ProfileFace />
+              }
             </Badge>
             <Box sx={{ display: 'flex', marginLeft: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
-              <Typography sx={{ fontWeight: 600 }}>John Doe</Typography>
+              <Typography sx={{ fontWeight: 600 }}>{userName ? userName : 'User not logged in'}</Typography>
               <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
-                Admin
+                User
               </Typography>
             </Box>
           </Box>
