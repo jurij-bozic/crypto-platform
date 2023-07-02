@@ -11,4 +11,4 @@ This is a simple crypto platform app. The below images illustrate the basic func
 ## 3. Registration page
 <img src="https://github.com/jurij-bozic/crypto-platform/assets/48452688/b2902cdb-bad6-4b69-9b79-d66f046ab753" width="600" />
 
-![crypto_platform_01](crypto_platform_01)
+![screenshot](crypto_platform_01)
