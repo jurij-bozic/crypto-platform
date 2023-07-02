@@ -1,6 +1,8 @@
-# This is a simple crypto platform app. The below images illustrate the basic functionalities, such as data fetching and user authorization using Firebase.
+# Crypto platform app
 
-![crypto_platform_01](https://github.com/jurij-bozic/crypto-platform/assets/48452688/2ca76ea6-de49-45ab-a4e7-0816f54112c6)
+This is a simple crypto platform app. The below images illustrate the basic functionalities, such as data fetching and user authorization using Firebase.
+
+![crypto_platform_01](https://github.com/jurij-bozic/crypto-platform/assets/48452688/21cdcf13-1d1a-45cb-88b2-18ad21aad8af)
 
 
 ![crypto_platform_02](https://github.com/jurij-bozic/crypto-platform/assets/48452688/06a10035-c378-41df-afb1-c8a6fc515caa)
