@@ -70,7 +70,7 @@ const VerticalNavLink = ({ item, navVisible, toggleNavVisibility }) => {
         <MenuNavLink
           component={'a'}
           className={isNavLinkActive() ? 'active' : ''}
-          {...(item.openInNewTab ? { target: '_blank' } : null)}
+          // {...(item.openInNewTab ? { target: '_blank' } : null)}
           onClick={e => {
             if (item.path === undefined) {
               e.preventDefault()

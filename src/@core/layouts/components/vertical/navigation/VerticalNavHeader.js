@@ -34,10 +34,7 @@ const StyledLink = styled('a')({
 })
 
 const VerticalNavHeader = props => {
-  // ** Props
   const { verticalNavMenuBranding: userVerticalNavMenuBranding } = props
-
-  // ** Hooks
   const theme = useTheme()
 
   const BitcoinImg = styled('img')({

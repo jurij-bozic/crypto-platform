@@ -38,12 +38,6 @@ const HomePage = () => {
     console.log(topTwentyCoins)
   }, [topTwentyCoins]);
 
-  useEffect(() => {
-    let test = cryptoStats
-    console.log(cryptoStats)
-    // debugger
-  }, [cryptoStats]);
-
   return (
     <ApexChartWrapper style={{ maxWidth: 840 }}>     
       <div>
