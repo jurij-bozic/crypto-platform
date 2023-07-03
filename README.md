@@ -1,4 +1,4 @@
-# Crypto platform app
+# crypto-platform
 This is a simple crypto platform app. 
 
 The below images illustrate the basic functionalities, such as data fetching and user authentication using Firebase. The app is built using React, NextJS 12 and Firebase for data-management.
